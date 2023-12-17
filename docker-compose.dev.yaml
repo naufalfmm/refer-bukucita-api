@@ -1,0 +1,13 @@
+version: '3.8'
+
+services:
+  bukucita-dev:
+    build:
+      dockerfile: dev.Dockerfile
+    container_name: bukucita-dev
+    env_file:
+      - .env
+    expose:
+      - ${PORT}
+    ports:
+      - "${PORT}:${PORT}"
