@@ -1,8 +1,14 @@
-FROM node:latest as BUILD
+FROM node:alpine AS builder
 
-ADD . /app
-WORKDIR /app
+WORKDIR /usr/src/build
+COPY . .
+RUN apk update && npm i && npm run build
 
-RUN apt update && npm i
+FROM node:alpine
 
-CMD [ "npm run prod" ]
+WORKDIR /usr/src/app
+COPY package.json ./
+COPY --from=builder /usr/src/build/node_modules ./node_modules
+COPY --from=builder /usr/src/build/dist ./dist
+
+CMD [ "npm", "run", "prod" ]
