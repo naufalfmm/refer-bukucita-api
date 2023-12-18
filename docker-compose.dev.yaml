@@ -1,9 +1,21 @@
 version: '3.8'
 
 services:
+  bukucita-redis:
+    image: redis:7.2-alpine
+    container_name: bukucita-redis
+    restart: always
+    expose:
+      - ${REDIS_PORT}
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+    command: "redis-server --save 20 1 --loglevel warning --requirepass ${REDIS_PASSWORD}"
+    env_file:
+      - .env
   bukucita-dev:
     build:
       dockerfile: dev.Dockerfile
+    image: bukucita-dev
     container_name: bukucita-dev
     env_file:
       - .env

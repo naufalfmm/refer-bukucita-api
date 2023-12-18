@@ -1,11 +1,11 @@
-FROM node:latest
+FROM node:alpine
 
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
-RUN npm i
+RUN apk update && npm i
 
 COPY . .
 
-RUN npm run dev
+CMD [ "npm", "run", "dev" ]

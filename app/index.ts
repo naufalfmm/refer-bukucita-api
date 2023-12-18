@@ -30,6 +30,7 @@ const initializeApp = async (): Promise<Express> => {
     const redisClient = new RedisClient({
         port: process.env.REDIS_PORT,
         host: process.env.REDIS_HOST,
+        password: process.env.REDIS_PASSWORD,
         defaultTimeout: Number(process.env.REDIS_TIMEOUT),
     })
 
